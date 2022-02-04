@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import com.pinkcloud.simpleposts.databinding.MainFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -27,11 +28,19 @@ class MainFragment : Fragment() {
     ): View {
         binding = MainFragmentBinding.inflate(inflater, container, false)
 
+        val adapter = PostsAdapter(object : PostClickListener {
+            override fun onClick(postId: Int) {
+                findNavController().navigate(
+                    MainFragmentDirections.actionMainFragmentToDetailFragment(postId)
+                )
+            }
+        })
+
         binding.swipeRefreshLayout.setOnRefreshListener {
-            // TODO refresh posts when swipe
+            adapter.refresh()
+//            binding.swipeRefreshLayout.isRefreshing =
         }
 
-        val adapter = PostsAdapter()
         binding.recyclerView.adapter = adapter
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -41,13 +50,13 @@ class MainFragment : Fragment() {
             }
         }
 
-//        lifecycleScope.launch {
-//            repeatOnLifecycle(Lifecycle.State.STARTED) {
-//                adapter.loadStateFlow.collect {
-//
-//                }
-//            }
-//        }
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                adapter.loadStateFlow.collectLatest {
+
+                }
+            }
+        }
 
         return binding.root
     }

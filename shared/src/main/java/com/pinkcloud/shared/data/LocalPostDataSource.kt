@@ -6,6 +6,7 @@ import com.pinkcloud.shared.db.PostRemoteKey
 import com.pinkcloud.shared.db.PostRemoteKeyDao
 import com.pinkcloud.shared.model.Comment
 import com.pinkcloud.shared.model.Post
+import com.pinkcloud.shared.remote.Result
 import javax.inject.Inject
 
 class LocalPostDataSource @Inject constructor(
@@ -16,7 +17,7 @@ class LocalPostDataSource @Inject constructor(
         TODO("Not yet implemented")
     }
 
-    override suspend fun getPost(postId: Int): Post {
+    override suspend fun getPost(postId: Int): Result<Post> {
         TODO("Not yet implemented")
     }
 
@@ -28,7 +29,7 @@ class LocalPostDataSource @Inject constructor(
         TODO("Not yet implemented")
     }
 
-    override suspend fun getComments(postId: Int): List<Comment> {
+    override suspend fun getComments(postId: Int): Result<List<Comment>> {
         TODO("Not yet implemented")
     }
 

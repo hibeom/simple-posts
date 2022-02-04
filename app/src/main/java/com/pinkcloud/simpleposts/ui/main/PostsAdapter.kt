@@ -8,12 +8,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.pinkcloud.shared.model.Post
 import com.pinkcloud.simpleposts.databinding.PostItemRowBinding
 
-class PostsAdapter: PagingDataAdapter<Post, PostsAdapter.ViewHolder>(PostDiffCallback()) {
+class PostsAdapter(
+    private val postClickListener: PostClickListener
+): PagingDataAdapter<Post, PostsAdapter.ViewHolder>(PostDiffCallback()) {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val post = getItem(position)
         post?.let {
-            holder.bind(it)
+            holder.bind(it, postClickListener)
         }
     }
 
@@ -24,8 +26,9 @@ class PostsAdapter: PagingDataAdapter<Post, PostsAdapter.ViewHolder>(PostDiffCal
     class ViewHolder(private val binding: PostItemRowBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(post: Post) {
+        fun bind(post: Post, postClickListener: PostClickListener) {
             binding.post = post
+            binding.postClickListener = postClickListener
         }
 
         companion object {
@@ -46,4 +49,8 @@ class PostDiffCallback : DiffUtil.ItemCallback<Post>() {
     override fun areContentsTheSame(oldItem: Post, newItem: Post): Boolean {
         return oldItem == newItem
     }
+}
+
+interface PostClickListener {
+    fun onClick(postId: Int)
 }

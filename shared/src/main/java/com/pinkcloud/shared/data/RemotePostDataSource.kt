@@ -2,12 +2,15 @@ package com.pinkcloud.shared.data
 
 import com.pinkcloud.shared.model.Comment
 import com.pinkcloud.shared.model.Post
+import com.pinkcloud.shared.remote.BaseApiResponse
 import com.pinkcloud.shared.remote.PostService
+import com.pinkcloud.shared.remote.Result
+import com.pinkcloud.shared.remote.asDomainModel
 import javax.inject.Inject
 
 class RemotePostDataSource @Inject constructor(
     private val postService: PostService
-) : PostDataSource {
+) : PostDataSource, BaseApiResponse() {
     override suspend fun getPosts(start: Int, limit: Int): List<Post> {
         return postService.getPostsPage(start, limit).map {
             Post(
@@ -19,8 +22,13 @@ class RemotePostDataSource @Inject constructor(
         }
     }
 
-    override suspend fun getPost(postId: Int): Post {
-        TODO("Not yet implemented")
+    override suspend fun getPost(postId: Int): Result<Post> {
+        val result = safeApiCall { postService.getPost(postId) }
+        return when (result) {
+            is Result.Success -> Result.Success(result.data!!.asDomainModel())
+            is Result.Error -> Result.Error(result.message!!, null)
+            else -> Result.Loading()
+        }
     }
 
     override suspend fun deletePost(postId: Int) {
@@ -31,7 +39,7 @@ class RemotePostDataSource @Inject constructor(
         TODO("Not yet implemented")
     }
 
-    override suspend fun getComments(postId: Int): List<Comment> {
-        TODO("Not yet implemented")
+    override suspend fun getComments(postId: Int): Result<List<Comment>> {
+        return safeApiCall { postService.getComments(postId) }
     }
 }

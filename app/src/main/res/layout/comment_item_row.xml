@@ -4,32 +4,31 @@
 
     <data>
         <variable
-            name="post"
-            type="com.pinkcloud.shared.model.Post" />
-        <variable
-            name="postClickListener"
-            type="com.pinkcloud.simpleposts.ui.main.PostClickListener" />
+            name="comment"
+            type="com.pinkcloud.shared.model.Comment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="@{() -> postClickListener.onClick(post.id)}">
+        android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/text_title"
+            android:id="@+id/text_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            android:text="@{post.title}"/>
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/text_name" />
 
         <TextView
             android:id="@+id/text_body"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/text_title"
-            android:text="@{post.body}"
-            android:maxLines="3"/>
+            app:layout_constraintTop_toBottomOf="@id/text_email" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
