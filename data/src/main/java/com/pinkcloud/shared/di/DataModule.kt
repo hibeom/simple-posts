@@ -1,9 +1,9 @@
 package com.pinkcloud.shared.di
 
-import com.pinkcloud.shared.data.LocalPostDataSource
-import com.pinkcloud.shared.data.PostDataSource
-import com.pinkcloud.shared.data.PostPagingDataSource
-import com.pinkcloud.shared.data.RemotePostDataSource
+import com.pinkcloud.shared.source.LocalPostDataSource
+import com.pinkcloud.shared.source.PostDataSource
+import com.pinkcloud.shared.source.PostPagingDataSource
+import com.pinkcloud.shared.source.RemotePostDataSource
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

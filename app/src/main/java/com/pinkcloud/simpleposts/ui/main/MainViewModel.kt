@@ -2,7 +2,7 @@ package com.pinkcloud.simpleposts.ui.main
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import com.pinkcloud.shared.data.PostRepository
+import com.pinkcloud.shared.source.PostRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

@@ -1,4 +1,4 @@
-package com.pinkcloud.shared.data
+package com.pinkcloud.shared.source
 
 import com.pinkcloud.shared.model.Comment
 import com.pinkcloud.shared.model.Post

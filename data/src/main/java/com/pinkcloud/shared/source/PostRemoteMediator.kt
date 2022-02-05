@@ -1,4 +1,4 @@
-package com.pinkcloud.shared.data
+package com.pinkcloud.shared.source
 
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
