@@ -15,7 +15,7 @@ import javax.inject.Singleton
 @Singleton
 class PostRepository @Inject constructor(
     private val localPostDataSource: PostPagingDataSource,
-    @Named("local")
+    @Named("remote")
     private val remotePostDataSource: PostDataSource
 ) {
 

@@ -7,7 +7,6 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Singleton
@@ -20,7 +19,7 @@ object RemoteModule {
 
     @Singleton
     @Provides
-    fun providePostService(client: OkHttpClient): PostService {
+    fun providePostService(): PostService {
         val moshi = Moshi.Builder()
             .add(KotlinJsonAdapterFactory())
             .build()
@@ -28,7 +27,6 @@ object RemoteModule {
 
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
-            .client(client)
             .addConverterFactory(moshiConverterFactory)
             .build()
             .create(PostService::class.java)

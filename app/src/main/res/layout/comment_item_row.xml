@@ -10,25 +10,24 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingVertical="12dp">
 
         <TextView
-            android:id="@+id/text_name"
+            android:id="@+id/text_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:name="@{comment.name}"
+            app:email="@{comment.email}"
+            android:textStyle="bold"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/text_email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/text_name" />
 
         <TextView
             android:id="@+id/text_body"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/text_email" />
+            android:text="@{comment.body}"
+            app:layout_constraintTop_toBottomOf="@id/text_title" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

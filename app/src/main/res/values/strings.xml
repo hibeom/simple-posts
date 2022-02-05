@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Simple Posts</string>
     <string name="posts">Posts</string>
+    <string name="comments">Comments</string>
 </resources>
