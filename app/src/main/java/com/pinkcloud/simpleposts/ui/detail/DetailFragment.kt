@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -16,7 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class DetailFragment: Fragment() {
+class DetailFragment : Fragment() {
 
     private val viewModel: DetailViewModel by viewModels()
     private lateinit var binding: DetailFragmentBinding
@@ -32,9 +33,10 @@ class DetailFragment: Fragment() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.post.collect { postResult ->
-                    when(postResult) {
-                        is Result.Success -> binding.post = postResult.data
-                        //TODO handle error, loading
+                    binding.loadingBar.isVisible = postResult is Result.Loading
+                    binding.textError.isVisible = postResult is Result.Error
+                    if (postResult is Result.Success) {
+                        binding.post = postResult.data
                     }
                 }
             }
@@ -45,9 +47,11 @@ class DetailFragment: Fragment() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.comments.collect { commentsResult ->
-                    when(commentsResult) {
-                        is Result.Success -> adapter.submitList(commentsResult.data)
-                        // TODO handle error, loading
+                    binding.loadingBar.isVisible = commentsResult is Result.Loading
+                    binding.textError.isVisible = commentsResult is Result.Error
+                    binding.textCommentTitle.isVisible = commentsResult !is Result.Error
+                    if (commentsResult is Result.Success) {
+                        adapter.submitList(commentsResult.data)
                     }
                 }
             }
