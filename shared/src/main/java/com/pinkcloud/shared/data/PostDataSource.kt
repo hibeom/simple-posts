@@ -3,6 +3,7 @@ package com.pinkcloud.shared.data
 import com.pinkcloud.shared.model.Comment
 import com.pinkcloud.shared.model.Post
 import com.pinkcloud.shared.remote.Result
+import kotlinx.coroutines.flow.Flow
 
 interface PostDataSource {
 
@@ -10,9 +11,11 @@ interface PostDataSource {
 
     suspend fun getPost(postId: Int): Result<Post>
 
-    suspend fun deletePost(postId: Int)
+    fun getPostFlow(postId: Int): Flow<Post>
 
-    suspend fun updatePost(post: Post)
+    suspend fun deletePost(post: Post): Result<Void>
+
+    suspend fun updatePost(post: Post): Result<Post>
 
     suspend fun getComments(postId: Int): Result<List<Comment>>
 }

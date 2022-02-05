@@ -7,6 +7,8 @@ import com.pinkcloud.shared.db.PostRemoteKeyDao
 import com.pinkcloud.shared.model.Comment
 import com.pinkcloud.shared.model.Post
 import com.pinkcloud.shared.remote.Result
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.distinctUntilChanged
 import javax.inject.Inject
 
 class LocalPostDataSource @Inject constructor(
@@ -18,15 +20,34 @@ class LocalPostDataSource @Inject constructor(
     }
 
     override suspend fun getPost(postId: Int): Result<Post> {
-        TODO("Not yet implemented")
+        return try {
+            val post = postDao.getPost(postId)
+            Result.Success(post)
+        } catch (e: Exception) {
+            Result.Error(e.message)
+        }
     }
 
-    override suspend fun deletePost(postId: Int) {
-        TODO("Not yet implemented")
+    override fun getPostFlow(postId: Int): Flow<Post> {
+        return postDao.getPostFlow(postId).distinctUntilChanged()
     }
 
-    override suspend fun updatePost(post: Post) {
-        TODO("Not yet implemented")
+    override suspend fun deletePost(post: Post): Result<Void> {
+        return try {
+            postDao.delete(post)
+            Result.Success(null)
+        } catch (e: Exception) {
+            Result.Error(e.message)
+        }
+    }
+
+    override suspend fun updatePost(post: Post): Result<Post> {
+        return try {
+            postDao.update(post)
+            Result.Success(post)
+        } catch (e: Exception) {
+            Result.Error(e.message)
+        }
     }
 
     override suspend fun getComments(postId: Int): Result<List<Comment>> {

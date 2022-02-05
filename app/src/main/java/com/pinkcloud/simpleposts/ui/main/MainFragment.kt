@@ -60,20 +60,19 @@ class MainFragment : Fragment() {
 
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                pagingData.collectLatest {
-                    adapter.submitData(it)
+                launch {
+                    pagingData.collectLatest {
+                        adapter.submitData(it)
+                    }
                 }
-            }
-        }
-
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                adapter.loadStateFlow.collectLatest { loadState ->
-                    val isListEmpty = loadState.source.refresh is LoadState.NotLoading && loadState.mediator?.refresh is LoadState.NotLoading  && adapter.itemCount == 0
-                    textEmpty.isVisible = isListEmpty
-                    recyclerView.isVisible = loadState.source.refresh is LoadState.NotLoading || loadState.mediator?.refresh is LoadState.NotLoading
-                    textError.isVisible = loadState.mediator?.refresh is LoadState.Error && adapter.itemCount == 0
-                    swipeRefreshLayout.isRefreshing = loadState.mediator?.refresh is LoadState.Loading
+                launch {
+                    adapter.loadStateFlow.collectLatest { loadState ->
+                        val isListEmpty = loadState.source.refresh is LoadState.NotLoading && loadState.mediator?.refresh is LoadState.NotLoading  && adapter.itemCount == 0
+                        textEmpty.isVisible = isListEmpty
+                        recyclerView.isVisible = loadState.source.refresh is LoadState.NotLoading || loadState.mediator?.refresh is LoadState.NotLoading
+                        textError.isVisible = loadState.mediator?.refresh is LoadState.Error && adapter.itemCount == 0
+                        swipeRefreshLayout.isRefreshing = loadState.mediator?.refresh is LoadState.Loading
+                    }
                 }
             }
         }

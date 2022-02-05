@@ -1,11 +1,8 @@
 package com.pinkcloud.shared.remote
 
 import com.pinkcloud.shared.model.Comment
-import com.pinkcloud.shared.model.Post
 import retrofit2.Response
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface PostService {
 
@@ -24,4 +21,16 @@ interface PostService {
     suspend fun getComments(
         @Path("postId") postId: Int
     ): Response<List<Comment>>
+
+    @DELETE("posts/{postId}")
+    suspend fun deletePost(
+        @Path("postId") postId: Int
+    ): Response<Void>
+
+    @Headers("Content-Type: application/json; charset=utf-8")
+    @PATCH("posts/{postId}")
+    suspend fun updatePost(
+        @Path("postId") postId: Int,
+        @Body body: HashMap<String, String>
+    ): Response<PostResponse>
 }

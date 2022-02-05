@@ -5,6 +5,9 @@
 
     <data>
         <variable
+            name="viewModel"
+            type="com.pinkcloud.simpleposts.ui.detail.DetailViewModel" />
+        <variable
             name="post"
             type="com.pinkcloud.shared.model.Post" />
     </data>
@@ -17,12 +20,38 @@
 
         <TextView
             android:id="@+id/text_title"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
             android:textStyle="bold"
             android:textSize="24sp"
-            android:text="@{post.title}"/>
+            android:text="@{post.title}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/button_edit"/>
+
+        <ImageButton
+            android:id="@+id/button_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toStartOf="@id/button_delete"
+            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/ic_edit"
+            android:padding="12dp"
+            android:background="?attr/backgroundColor"
+            android:contentDescription="@string/edit_post"
+            android:onClick="@{() -> viewModel.onClickEdit()}"/>
+
+        <ImageButton
+            android:id="@+id/button_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/ic_delete"
+            android:padding="12dp"
+            android:background="?attr/backgroundColor"
+            android:contentDescription="@string/delete_post"
+            android:onClick="@{() -> viewModel.deletePost()}"/>
 
         <TextView
             android:id="@+id/text_body"

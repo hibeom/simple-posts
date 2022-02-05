@@ -1,11 +1,9 @@
 package com.pinkcloud.shared.db
 
 import androidx.paging.PagingSource
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.pinkcloud.shared.model.Post
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface PostDao {
@@ -17,4 +15,16 @@ interface PostDao {
 
     @Query("DELETE FROM posts")
     suspend fun clearAll()
+
+    @Delete
+    suspend fun delete(post: Post)
+
+    @Update
+    suspend fun update(post: Post)
+
+    @Query("SELECT * FROM posts WHERE id = :postId")
+    fun getPostFlow(postId: Int): Flow<Post>
+
+    @Query("SELECT * FROM posts WHERE id = :postId")
+    suspend fun getPost(postId: Int): Post
 }
