@@ -22,7 +22,9 @@ class DetailViewModel @Inject constructor(
 
     private val postId = savedStateHandle.get<Int>("postId")
 
-    lateinit var post: StateFlow<Post>
+    val post = postId?.let {
+        repository.getPostFlow(it)
+    }
     private val _comments = MutableStateFlow<Result<List<Comment>>>(Result.Loading())
     val comments: StateFlow<Result<List<Comment>>>
         get() = _comments
@@ -36,15 +38,14 @@ class DetailViewModel @Inject constructor(
     init {
         postId?.let {
             viewModelScope.launch {
-                post = repository.getPostFlow(postId).stateIn(viewModelScope)
                 _comments.value = repository.getComments(postId)
             }
         }
     }
 
-    fun deletePost() {
+    fun deletePost(post: Post) {
         viewModelScope.launch {
-            repository.deletePost(post.value).also { result ->
+            repository.deletePost(post).also { result ->
                 if (result is Result.Success) _isDeleted.value = true
             }
         }
@@ -52,5 +53,9 @@ class DetailViewModel @Inject constructor(
 
     fun onClickEdit() {
         _isEditClicked.value = true
+    }
+
+    fun editShown() {
+        _isEditClicked.value = false
     }
 }

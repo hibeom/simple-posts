@@ -9,9 +9,7 @@ abstract class BaseApiResponse {
             val response = apiCall.invoke()
             if (response.isSuccessful) {
                 val body = response.body()
-                body?.let {
-                    return Result.Success(it)
-                }
+                return Result.Success(body)
             }
             return error("${response.code()} ${response.message()}")
         } catch (exception: Exception) {

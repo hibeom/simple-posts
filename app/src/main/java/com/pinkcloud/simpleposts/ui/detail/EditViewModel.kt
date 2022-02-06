@@ -25,9 +25,9 @@ class EditViewModel @Inject constructor(
     private val _isDone = MutableStateFlow(false)
     val isDone: StateFlow<Boolean>
         get() = _isDone
-    private val _isNetworkError = MutableStateFlow(false)
-    val isNetworkError: StateFlow<Boolean>
-        get() = _isNetworkError
+    private val _errorMessage = MutableStateFlow<String?>(null)
+    val errorMessage: StateFlow<String?>
+        get() = _errorMessage
 
     init {
         postId?.let {
@@ -52,7 +52,7 @@ class EditViewModel @Inject constructor(
                 if (result is Result.Success) {
                     _isDone.value = true
                 } else {
-                    _isNetworkError.value = true
+                    _errorMessage.value = result.message
                 }
             }
         }

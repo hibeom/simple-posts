@@ -47,12 +47,14 @@ class EditDialog : BottomSheetDialogFragment() {
                     }
                 }
                 launch {
-                    viewModel.isNetworkError.collect {
-                        Toast.makeText(
-                            context,
-                            getString(R.string.network_error),
-                            Toast.LENGTH_SHORT
-                        ).show()
+                    viewModel.errorMessage.collect { message ->
+                        message?.let {
+                            Toast.makeText(
+                                context,
+                                message,
+                                Toast.LENGTH_LONG
+                            ).show()
+                        }
                     }
                 }
             }

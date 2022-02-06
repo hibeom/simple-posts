@@ -15,6 +15,7 @@ import androidx.navigation.fragment.navArgs
 import com.pinkcloud.shared.remote.Result
 import com.pinkcloud.simpleposts.databinding.DetailFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -33,11 +34,12 @@ class DetailFragment : Fragment() {
 
         val adapter = CommentsAdapter()
         binding.recyclerView.adapter = adapter
+        binding.viewModel = viewModel
 
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch {
-                    viewModel.post.collect { post ->
+                    viewModel.post?.collectLatest { post ->
                         binding.post = post
                     }
                 }
@@ -64,6 +66,7 @@ class DetailFragment : Fragment() {
                             findNavController().navigate(
                                 DetailFragmentDirections.actionDetailFragmentToEditDialog(args.postId)
                             )
+                            viewModel.editShown()
                         }
                     }
                 }

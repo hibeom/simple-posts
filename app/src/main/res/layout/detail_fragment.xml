@@ -37,7 +37,7 @@
             app:layout_constraintTop_toTopOf="parent"
             android:src="@drawable/ic_edit"
             android:padding="12dp"
-            android:background="?attr/backgroundColor"
+            android:background="?attr/colorSurface"
             android:contentDescription="@string/edit_post"
             android:onClick="@{() -> viewModel.onClickEdit()}"/>
 
@@ -49,9 +49,9 @@
             app:layout_constraintTop_toTopOf="parent"
             android:src="@drawable/ic_delete"
             android:padding="12dp"
-            android:background="?attr/backgroundColor"
+            android:background="?attr/colorSurface"
             android:contentDescription="@string/delete_post"
-            android:onClick="@{() -> viewModel.deletePost()}"/>
+            android:onClick="@{() -> viewModel.deletePost(post)}"/>
 
         <TextView
             android:id="@+id/text_body"

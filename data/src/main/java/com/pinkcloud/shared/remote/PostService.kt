@@ -31,6 +31,6 @@ interface PostService {
     @PATCH("posts/{postId}")
     suspend fun updatePost(
         @Path("postId") postId: Int,
-        @Body body: HashMap<String, String>
+        @Body body: Map<String, String>
     ): Response<PostResponse>
 }
