@@ -4,6 +4,7 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
+import com.pinkcloud.shared.db.PostDatabase
 import com.pinkcloud.shared.model.Comment
 import com.pinkcloud.shared.model.Post
 import com.pinkcloud.shared.remote.Result
@@ -18,7 +19,8 @@ class PostRepository @Inject constructor(
     @Named("remote")
     private val remotePostDataSource: PostDataSource,
     @Named("local")
-    private val localPostDataSource: PostDataSource
+    private val localPostDataSource: PostDataSource,
+    private val database: PostDatabase
 ) {
 
     @OptIn(ExperimentalPagingApi::class)
@@ -30,7 +32,7 @@ class PostRepository @Inject constructor(
                 initialLoadSize = PAGE_SIZE
             ),
             pagingSourceFactory = { localPostPagingDataSource.getPostPagingSource() },
-            remoteMediator = PostRemoteMediator(localPostPagingDataSource, remotePostDataSource)
+            remoteMediator = PostRemoteMediator(localPostPagingDataSource, remotePostDataSource, database)
         ).flow
     }
 

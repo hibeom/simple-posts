@@ -25,7 +25,9 @@
             app:layout_constraintTop_toTopOf="parent"
             android:textStyle="bold"
             android:textSize="24sp"
-            android:text="@{post.title}"/>
+            android:text="@{post.title}"
+            android:ellipsize="end"
+            android:maxLines="2"/>
 
         <TextView
             android:id="@+id/text_body"
