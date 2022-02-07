@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.pinkcloud.shared.model.Post
+import com.pinkcloud.data.model.Post
 import com.pinkcloud.simpleposts.databinding.PostItemRowBinding
 
 class PostsAdapter(

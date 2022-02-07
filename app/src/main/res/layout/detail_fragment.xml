@@ -9,7 +9,7 @@
             type="com.pinkcloud.simpleposts.ui.detail.DetailViewModel" />
         <variable
             name="post"
-            type="com.pinkcloud.shared.model.Post" />
+            type="com.pinkcloud.data.model.Post" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

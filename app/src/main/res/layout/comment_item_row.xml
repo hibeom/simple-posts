@@ -5,7 +5,7 @@
     <data>
         <variable
             name="comment"
-            type="com.pinkcloud.shared.model.Comment" />
+            type="com.pinkcloud.data.model.Comment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

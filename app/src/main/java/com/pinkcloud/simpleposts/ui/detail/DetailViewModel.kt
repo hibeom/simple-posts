@@ -3,14 +3,13 @@ package com.pinkcloud.simpleposts.ui.detail
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.pinkcloud.shared.source.PostRepository
-import com.pinkcloud.shared.model.Comment
-import com.pinkcloud.shared.model.Post
-import com.pinkcloud.shared.remote.Result
+import com.pinkcloud.data.source.PostRepository
+import com.pinkcloud.data.model.Comment
+import com.pinkcloud.data.model.Post
+import com.pinkcloud.data.remote.Result
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

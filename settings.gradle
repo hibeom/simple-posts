@@ -9,3 +9,4 @@ dependencyResolutionManagement {
 rootProject.name = "Simple Posts"
 include ':app'
 include ':data'
+include ':domain'

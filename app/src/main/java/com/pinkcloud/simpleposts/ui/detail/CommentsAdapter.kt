@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.pinkcloud.shared.model.Comment
+import com.pinkcloud.data.model.Comment
 import com.pinkcloud.simpleposts.databinding.CommentItemRowBinding
 
 class CommentsAdapter: ListAdapter<Comment, CommentsAdapter.ViewHolder>(CommentDiffCallback()) {
