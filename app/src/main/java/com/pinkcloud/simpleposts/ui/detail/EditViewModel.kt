@@ -3,9 +3,10 @@ package com.pinkcloud.simpleposts.ui.detail
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.pinkcloud.data.source.PostRepository
-import com.pinkcloud.data.model.Post
-import com.pinkcloud.data.remote.Result
+import com.pinkcloud.domain.model.Post
+import com.pinkcloud.domain.usecase.GetPostUseCase
+import com.pinkcloud.domain.usecase.UpdatePostUseCase
+import com.pinkcloud.domain.utils.Result
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -14,7 +15,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class EditViewModel @Inject constructor(
-    private val repository: PostRepository,
+    private val getPostUseCase: GetPostUseCase,
+    private val updatePostUseCase: UpdatePostUseCase,
     private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
@@ -32,7 +34,7 @@ class EditViewModel @Inject constructor(
     init {
         postId?.let {
             viewModelScope.launch {
-                _post.value = repository.getPost(postId).let { result ->
+                _post.value = getPostUseCase(postId).let { result ->
                     if (result is Result.Success) result.data
                     else null
                 }
@@ -48,7 +50,7 @@ class EditViewModel @Inject constructor(
                 title = title,
                 body = body
             )
-            repository.updatePost(newPost).also { result ->
+            updatePostUseCase(newPost).also { result ->
                 if (result is Result.Success) {
                     _isDone.value = true
                 } else {

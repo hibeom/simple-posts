@@ -3,10 +3,12 @@ package com.pinkcloud.simpleposts.ui.detail
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.pinkcloud.data.source.PostRepository
-import com.pinkcloud.data.model.Comment
-import com.pinkcloud.data.model.Post
-import com.pinkcloud.data.remote.Result
+import com.pinkcloud.domain.model.Comment
+import com.pinkcloud.domain.model.Post
+import com.pinkcloud.domain.usecase.DeletePostUseCase
+import com.pinkcloud.domain.usecase.GetCommentsUseCase
+import com.pinkcloud.domain.usecase.GetPostFlowUseCase
+import com.pinkcloud.domain.utils.Result
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -15,14 +17,16 @@ import javax.inject.Inject
 
 @HiltViewModel
 class DetailViewModel @Inject constructor(
-    private val repository: PostRepository,
+    private val getPostFlowUseCase: GetPostFlowUseCase,
+    private val getCommentsUseCase: GetCommentsUseCase,
+    private val deletePostUseCase: DeletePostUseCase,
     private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
     private val postId = savedStateHandle.get<Int>("postId")
 
     val post = postId?.let {
-        repository.getPostFlow(it)
+        getPostFlowUseCase(it)
     }
     private val _comments = MutableStateFlow<Result<List<Comment>>>(Result.Loading())
     val comments: StateFlow<Result<List<Comment>>>
@@ -37,14 +41,14 @@ class DetailViewModel @Inject constructor(
     init {
         postId?.let {
             viewModelScope.launch {
-                _comments.value = repository.getComments(postId)
+                _comments.value = getCommentsUseCase(postId)
             }
         }
     }
 
     fun deletePost(post: Post) {
         viewModelScope.launch {
-            repository.deletePost(post).also { result ->
+            deletePostUseCase(post).also { result ->
                 if (result is Result.Success) _isDeleted.value = true
             }
         }

@@ -1,13 +1,12 @@
 package com.pinkcloud.data.source
 
-import androidx.paging.ExperimentalPagingApi
-import androidx.paging.Pager
-import androidx.paging.PagingConfig
-import androidx.paging.PagingData
+import androidx.paging.*
 import com.pinkcloud.data.db.PostDatabase
-import com.pinkcloud.data.model.Post
+import com.pinkcloud.data.model.asDomainModel
 import com.pinkcloud.data.remote.PostService
+import com.pinkcloud.domain.model.Post
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class BasePostPagingDataSource @Inject constructor(
@@ -25,6 +24,10 @@ class BasePostPagingDataSource @Inject constructor(
             ),
             pagingSourceFactory = { postDatabase.postDao.getPostPagingSource() },
             remoteMediator = PostRemoteMediator(postDatabase, postService)
-        ).flow
+        ).flow.map { pagingData ->
+            pagingData.map {
+                it.asDomainModel()
+            }
+        }
     }
 }

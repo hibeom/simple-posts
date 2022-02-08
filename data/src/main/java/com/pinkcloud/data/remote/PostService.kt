@@ -1,6 +1,6 @@
 package com.pinkcloud.data.remote
 
-import com.pinkcloud.data.model.Comment
+import com.pinkcloud.data.model.CommentEntity
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -20,7 +20,7 @@ interface PostService {
     @GET("posts/{postId}/comments")
     suspend fun getComments(
         @Path("postId") postId: Int
-    ): Response<List<Comment>>
+    ): Response<List<CommentEntity>>
 
     @DELETE("posts/{postId}")
     suspend fun deletePost(

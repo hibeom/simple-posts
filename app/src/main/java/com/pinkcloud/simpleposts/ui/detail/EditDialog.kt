@@ -11,7 +11,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.pinkcloud.simpleposts.R
 import com.pinkcloud.simpleposts.databinding.EditDialogBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch

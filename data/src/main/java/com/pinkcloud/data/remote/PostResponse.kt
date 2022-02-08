@@ -1,6 +1,6 @@
 package com.pinkcloud.data.remote
 
-import com.pinkcloud.data.model.Post
+import com.pinkcloud.data.model.PostEntity
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
@@ -11,8 +11,8 @@ data class PostResponse(
     val body: String
 )
 
-fun PostResponse.asDomainModel(): Post {
-    return Post(
+fun PostResponse.asDomainModel(): PostEntity {
+    return PostEntity(
         id = id,
         userId = userId,
         title = title,

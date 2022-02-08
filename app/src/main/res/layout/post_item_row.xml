@@ -5,7 +5,7 @@
     <data>
         <variable
             name="post"
-            type="com.pinkcloud.data.model.Post" />
+            type="com.pinkcloud.domain.model.Post" />
         <variable
             name="postClickListener"
             type="com.pinkcloud.simpleposts.ui.main.PostClickListener" />

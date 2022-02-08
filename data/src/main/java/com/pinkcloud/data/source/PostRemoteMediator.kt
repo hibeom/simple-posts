@@ -7,7 +7,7 @@ import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
 import com.pinkcloud.data.db.PostDatabase
 import com.pinkcloud.data.db.PostRemoteKey
-import com.pinkcloud.data.model.Post
+import com.pinkcloud.data.model.PostEntity
 import com.pinkcloud.data.remote.PostService
 import com.pinkcloud.data.remote.asDomainModel
 import retrofit2.HttpException
@@ -20,12 +20,12 @@ const val PAGE_SIZE = 20
 class PostRemoteMediator(
     private val database: PostDatabase,
     private val postService: PostService
-) : RemoteMediator<Int, Post>() {
+) : RemoteMediator<Int, PostEntity>() {
 
     private val postDao = database.postDao
     private val postRemoteKeyDao = database.postRemoteKeyDao
 
-    override suspend fun load(loadType: LoadType, state: PagingState<Int, Post>): MediatorResult {
+    override suspend fun load(loadType: LoadType, state: PagingState<Int, PostEntity>): MediatorResult {
         val page = when (loadType) {
             LoadType.REFRESH -> START_PAGE_INDEX
             LoadType.PREPEND -> return MediatorResult.Success(endOfPaginationReached = true)
@@ -64,7 +64,7 @@ class PostRemoteMediator(
         }
     }
 
-    private suspend fun getRemoteKeyForLastItem(state: PagingState<Int, Post>): PostRemoteKey? {
+    private suspend fun getRemoteKeyForLastItem(state: PagingState<Int, PostEntity>): PostRemoteKey? {
         return state.pages.lastOrNull { it.data.isNotEmpty() }?.data?.lastOrNull()
             ?.let { post ->
                 database.withTransaction {

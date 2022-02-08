@@ -1,8 +1,5 @@
-package com.pinkcloud.data.model
+package com.pinkcloud.domain.model
 
-import com.squareup.moshi.JsonClass
-
-@JsonClass(generateAdapter = true)
 data class Comment(
     val id: Int,
     val postId: Int,

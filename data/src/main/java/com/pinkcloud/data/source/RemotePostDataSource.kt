@@ -1,44 +1,40 @@
 package com.pinkcloud.data.source
 
-import com.pinkcloud.data.model.Comment
-import com.pinkcloud.data.model.Post
+import com.pinkcloud.data.model.CommentEntity
+import com.pinkcloud.data.model.PostEntity
 import com.pinkcloud.data.remote.*
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
+import com.pinkcloud.domain.utils.Result
 
 class RemotePostDataSource @Inject constructor(
     private val postService: PostService
 ) : PostDataSource, BaseApiResponse() {
-    override suspend fun getPosts(start: Int, limit: Int): List<Post> {
-        return postService.getPostsPage(start, limit).map {
-            it.asDomainModel()
-        }
-    }
 
-    override suspend fun getPost(postId: Int): Result<Post> {
+    override suspend fun getPost(postId: Int): Result<PostEntity> {
         return safeApiCall { postService.getPost(postId) }.asDomainModel()
     }
 
-    override fun getPostFlow(postId: Int): Flow<Post> {
+    override fun getPostFlow(postId: Int): Flow<PostEntity> {
         TODO("Not yet implemented")
     }
 
-    override suspend fun deletePost(post: Post): Result<Void> {
-        return safeApiCall { postService.deletePost(post.id) }
+    override suspend fun deletePost(postEntity: PostEntity): Result<Void> {
+        return safeApiCall { postService.deletePost(postEntity.id) }
     }
 
-    override suspend fun updatePost(post: Post): Result<Post> {
+    override suspend fun updatePost(postEntity: PostEntity): Result<PostEntity> {
         return safeApiCall { postService.updatePost(
-            postId = post.id,
-            body = hashMapOf("title" to post.title,  "body" to post.body)
+            postId = postEntity.id,
+            body = hashMapOf("title" to postEntity.title,  "body" to postEntity.body)
         ) }.asDomainModel()
     }
 
-    override suspend fun getComments(postId: Int): Result<List<Comment>> {
+    override suspend fun getComments(postId: Int): Result<List<CommentEntity>> {
         return safeApiCall { postService.getComments(postId) }
     }
 
-    private fun Result<PostResponse>.asDomainModel(): Result<Post> {
+    private fun Result<PostResponse>.asDomainModel(): Result<PostEntity> {
         return when (this) {
             is Result.Success -> Result.Success(data?.asDomainModel())
             is Result.Error -> Result.Error(message!!, null)

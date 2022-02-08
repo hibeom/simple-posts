@@ -9,7 +9,6 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
-import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -17,7 +16,6 @@ object RemoteModule {
 
     private const val BASE_URL = "https://jsonplaceholder.typicode.com/"
 
-    @Singleton
     @Provides
     fun providePostService(): PostService {
         val moshi = Moshi.Builder()
