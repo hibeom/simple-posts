@@ -8,7 +8,7 @@ interface LocalPostDataSource {
 
     suspend fun getPost(postId: Int): Result<PostEntity>
 
-    fun getPostFlow(postId: Int): Flow<PostEntity>
+    fun getPostFlow(postId: Int): Flow<PostEntity?>
 
     suspend fun deletePost(postEntity: PostEntity): Result<Void>
 

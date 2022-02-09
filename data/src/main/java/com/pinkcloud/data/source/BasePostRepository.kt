@@ -26,9 +26,9 @@ class BasePostRepository @Inject constructor(
         return localPostDataSource.getPost(postId).asDomainModel()
     }
 
-    override fun getPostFlow(postId: Int): Flow<Post> {
+    override fun getPostFlow(postId: Int): Flow<Post?> {
         return localPostDataSource.getPostFlow(postId).map { entity ->
-            entity.asDomainModel()
+            entity?.asDomainModel()
         }
     }
 

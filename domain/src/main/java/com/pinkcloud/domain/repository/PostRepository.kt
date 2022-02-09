@@ -12,7 +12,7 @@ interface PostRepository {
 
     suspend fun getPost(postId: Int): Result<Post>
 
-    fun getPostFlow(postId: Int): Flow<Post>
+    fun getPostFlow(postId: Int): Flow<Post?>
 
     suspend fun getComments(postId: Int): Result<List<Comment>>
 

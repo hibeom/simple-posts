@@ -2,7 +2,6 @@ package com.pinkcloud.data.source.local
 
 import com.pinkcloud.data.db.PostDao
 import com.pinkcloud.data.model.PostEntity
-import com.pinkcloud.data.source.local.LocalPostDataSource
 import com.pinkcloud.domain.utils.Result
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -21,7 +20,7 @@ class BaseLocalPostDataSource @Inject constructor(
         }
     }
 
-    override fun getPostFlow(postId: Int): Flow<PostEntity> {
+    override fun getPostFlow(postId: Int): Flow<PostEntity?> {
         return postDao.getPostFlow(postId).distinctUntilChanged()
     }
 

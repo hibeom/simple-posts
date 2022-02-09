@@ -19,14 +19,11 @@ class BasePostPagingDataSource @Inject constructor(
         return Pager(
             config = PagingConfig(
                 pageSize = PAGE_SIZE,
-                enablePlaceholders = false,
-                initialLoadSize = PAGE_SIZE
             ),
             pagingSourceFactory = { postDatabase.postDao.getPostPagingSource() },
             remoteMediator = PostRemoteMediator(postDatabase, postService)
         ).flow.map { pagingData ->
             pagingData.map {
-                println("post id : ${it.id}")
                 it.asDomainModel()
             }
         }

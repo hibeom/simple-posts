@@ -37,6 +37,9 @@ class DetailViewModel @Inject constructor(
     private val _isEditClicked = MutableStateFlow(false)
     val isEditClicked: StateFlow<Boolean>
         get() = _isEditClicked
+    private val _errorMessage = MutableStateFlow("")
+    val errorMessage: StateFlow<String>
+        get() = _errorMessage
 
     init {
         postId?.let {
@@ -50,6 +53,9 @@ class DetailViewModel @Inject constructor(
         viewModelScope.launch {
             deletePostUseCase(post).also { result ->
                 if (result is Result.Success) _isDeleted.value = true
+                else result.message?.let {
+                    _errorMessage.value = it
+                }
             }
         }
     }
