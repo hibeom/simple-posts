@@ -1,16 +1,16 @@
-package com.pinkcloud.data.source
+package com.pinkcloud.data.source.local
 
 import com.pinkcloud.data.db.PostDao
-import com.pinkcloud.data.model.CommentEntity
 import com.pinkcloud.data.model.PostEntity
+import com.pinkcloud.data.source.local.LocalPostDataSource
 import com.pinkcloud.domain.utils.Result
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import javax.inject.Inject
 
-class LocalPostDataSource @Inject constructor(
+class BaseLocalPostDataSource @Inject constructor(
     private val postDao: PostDao,
-) : PostDataSource {
+) : LocalPostDataSource {
 
     override suspend fun getPost(postId: Int): Result<PostEntity> {
         return try {
@@ -41,9 +41,5 @@ class LocalPostDataSource @Inject constructor(
         } catch (e: Exception) {
             Result.Error(e.message)
         }
-    }
-
-    override suspend fun getComments(postId: Int): Result<List<CommentEntity>> {
-        TODO("Not yet implemented")
     }
 }

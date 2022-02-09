@@ -1,4 +1,4 @@
-package com.pinkcloud.data.source
+package com.pinkcloud.data.source.paging
 
 import androidx.paging.PagingData
 import com.pinkcloud.domain.model.Post

@@ -1,15 +1,12 @@
-package com.pinkcloud.data.source
+package com.pinkcloud.data.source.remote
 
 import com.pinkcloud.data.model.CommentEntity
 import com.pinkcloud.data.model.PostEntity
 import com.pinkcloud.domain.utils.Result
-import kotlinx.coroutines.flow.Flow
 
-interface PostDataSource {
+interface RemotePostDataSource {
 
     suspend fun getPost(postId: Int): Result<PostEntity>
-
-    fun getPostFlow(postId: Int): Flow<PostEntity>
 
     suspend fun deletePost(postEntity: PostEntity): Result<Void>
 

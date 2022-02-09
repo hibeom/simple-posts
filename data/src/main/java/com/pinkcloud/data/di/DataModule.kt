@@ -1,12 +1,17 @@
 package com.pinkcloud.data.di
 
-import com.pinkcloud.data.source.*
+import com.pinkcloud.data.source.local.BaseLocalPostDataSource
+import com.pinkcloud.data.source.BasePostRepository
+import com.pinkcloud.data.source.local.LocalPostDataSource
+import com.pinkcloud.data.source.paging.BasePostPagingDataSource
+import com.pinkcloud.data.source.paging.PostPagingDataSource
+import com.pinkcloud.data.source.remote.BaseRemotePostDataSource
+import com.pinkcloud.data.source.remote.RemotePostDataSource
 import com.pinkcloud.domain.repository.PostRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import javax.inject.Named
 import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
@@ -14,12 +19,10 @@ import javax.inject.Singleton
 abstract class DataModule {
 
     @Binds
-    @Named("local")
-    abstract fun bindLocalPostDataSource(localPostDataSource: LocalPostDataSource): PostDataSource
+    abstract fun bindLocalPostDataSource(baseLocalPostDataSource: BaseLocalPostDataSource): LocalPostDataSource
 
     @Binds
-    @Named("remote")
-    abstract fun bindRemotePostDataSource(remotePostDataSource: RemotePostDataSource): PostDataSource
+    abstract fun bindRemotePostDataSource(baseRemotePostDataSource: BaseRemotePostDataSource): RemotePostDataSource
 
     @Binds
     abstract fun bindPostPagingDataSource(postPagingDataSource: BasePostPagingDataSource): PostPagingDataSource

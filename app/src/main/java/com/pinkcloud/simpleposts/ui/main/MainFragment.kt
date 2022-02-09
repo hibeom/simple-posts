@@ -66,11 +66,15 @@ class MainFragment : Fragment() {
                 }
                 launch {
                     adapter.loadStateFlow.collectLatest { loadState ->
-                        val isListEmpty = loadState.source.refresh is LoadState.NotLoading && loadState.mediator?.refresh is LoadState.NotLoading  && adapter.itemCount == 0
+                        val isListEmpty =
+                            loadState.source.refresh is LoadState.NotLoading && loadState.mediator?.refresh is LoadState.NotLoading && adapter.itemCount == 0
                         textEmpty.isVisible = isListEmpty
-                        recyclerView.isVisible = loadState.source.refresh is LoadState.NotLoading || loadState.mediator?.refresh is LoadState.NotLoading
-                        textError.isVisible = loadState.mediator?.refresh is LoadState.Error && adapter.itemCount == 0
-                        swipeRefreshLayout.isRefreshing = loadState.mediator?.refresh is LoadState.Loading
+                        recyclerView.isVisible =
+                            loadState.source.refresh is LoadState.NotLoading || loadState.mediator?.refresh is LoadState.NotLoading
+                        textError.isVisible =
+                            loadState.mediator?.refresh is LoadState.Error && adapter.itemCount == 0
+                        swipeRefreshLayout.isRefreshing =
+                            loadState.mediator?.refresh is LoadState.Loading
                     }
                 }
             }

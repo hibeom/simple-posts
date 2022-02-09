@@ -11,7 +11,7 @@ data class PostResponse(
     val body: String
 )
 
-fun PostResponse.asDomainModel(): PostEntity {
+fun PostResponse.asEntity(): PostEntity {
     return PostEntity(
         id = id,
         userId = userId,

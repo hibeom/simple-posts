@@ -1,22 +1,20 @@
-package com.pinkcloud.data.source
+package com.pinkcloud.data.source.remote
 
 import com.pinkcloud.data.model.CommentEntity
 import com.pinkcloud.data.model.PostEntity
-import com.pinkcloud.data.remote.*
-import kotlinx.coroutines.flow.Flow
-import javax.inject.Inject
+import com.pinkcloud.data.remote.BaseApiResponse
+import com.pinkcloud.data.remote.PostResponse
+import com.pinkcloud.data.remote.PostService
+import com.pinkcloud.data.remote.asEntity
 import com.pinkcloud.domain.utils.Result
+import javax.inject.Inject
 
-class RemotePostDataSource @Inject constructor(
+class BaseRemotePostDataSource @Inject constructor(
     private val postService: PostService
-) : PostDataSource, BaseApiResponse() {
+) : RemotePostDataSource, BaseApiResponse() {
 
     override suspend fun getPost(postId: Int): Result<PostEntity> {
         return safeApiCall { postService.getPost(postId) }.asDomainModel()
-    }
-
-    override fun getPostFlow(postId: Int): Flow<PostEntity> {
-        TODO("Not yet implemented")
     }
 
     override suspend fun deletePost(postEntity: PostEntity): Result<Void> {
@@ -36,7 +34,7 @@ class RemotePostDataSource @Inject constructor(
 
     private fun Result<PostResponse>.asDomainModel(): Result<PostEntity> {
         return when (this) {
-            is Result.Success -> Result.Success(data?.asDomainModel())
+            is Result.Success -> Result.Success(data?.asEntity())
             is Result.Error -> Result.Error(message!!, null)
             else -> Result.Loading()
         }

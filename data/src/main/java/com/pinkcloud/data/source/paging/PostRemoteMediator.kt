@@ -1,4 +1,4 @@
-package com.pinkcloud.data.source
+package com.pinkcloud.data.source.paging
 
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
@@ -9,7 +9,7 @@ import com.pinkcloud.data.db.PostDatabase
 import com.pinkcloud.data.db.PostRemoteKey
 import com.pinkcloud.data.model.PostEntity
 import com.pinkcloud.data.remote.PostService
-import com.pinkcloud.data.remote.asDomainModel
+import com.pinkcloud.data.remote.asEntity
 import retrofit2.HttpException
 import java.io.IOException
 
@@ -41,7 +41,7 @@ class PostRemoteMediator(
             val posts = postService
                 .getPostsPage(page * state.config.pageSize, state.config.pageSize)
                 .map {
-                    it.asDomainModel()
+                    it.asEntity()
                 }
             val endOfPaginationReached = posts.isEmpty()
             database.withTransaction {

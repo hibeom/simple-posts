@@ -1,6 +1,9 @@
 package com.pinkcloud.data.source
 
 import com.pinkcloud.data.model.asDomainModel
+import com.pinkcloud.data.source.local.LocalPostDataSource
+import com.pinkcloud.data.source.paging.PostPagingDataSource
+import com.pinkcloud.data.source.remote.RemotePostDataSource
 import com.pinkcloud.data.utils.asDomainModel
 import com.pinkcloud.data.utils.asEntity
 import com.pinkcloud.domain.model.Comment
@@ -10,14 +13,11 @@ import com.pinkcloud.domain.utils.Result
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
-import javax.inject.Named
 
 class BasePostRepository @Inject constructor(
     private val postPagingDataSource: PostPagingDataSource,
-    @Named("remote")
-    private val remotePostDataSource: PostDataSource,
-    @Named("local")
-    private val localPostDataSource: PostDataSource,
+    private val remotePostDataSource: RemotePostDataSource,
+    private val localPostDataSource: LocalPostDataSource,
 ) : PostRepository {
 
     override fun getPostPagingFlow() = postPagingDataSource.getPostPagingStream()

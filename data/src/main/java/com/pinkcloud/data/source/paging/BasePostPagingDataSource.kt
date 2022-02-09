@@ -1,4 +1,4 @@
-package com.pinkcloud.data.source
+package com.pinkcloud.data.source.paging
 
 import androidx.paging.*
 import com.pinkcloud.data.db.PostDatabase
@@ -26,6 +26,7 @@ class BasePostPagingDataSource @Inject constructor(
             remoteMediator = PostRemoteMediator(postDatabase, postService)
         ).flow.map { pagingData ->
             pagingData.map {
+                println("post id : ${it.id}")
                 it.asDomainModel()
             }
         }
