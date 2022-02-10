@@ -2,8 +2,8 @@ package com.pinkcloud.data.source.paging
 
 import androidx.paging.*
 import com.pinkcloud.data.db.PostDatabase
-import com.pinkcloud.data.model.asDomainModel
-import com.pinkcloud.data.remote.PostService
+import com.pinkcloud.data.db.entity.asDomainModel
+import com.pinkcloud.data.api.PostService
 import com.pinkcloud.domain.model.Post
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map

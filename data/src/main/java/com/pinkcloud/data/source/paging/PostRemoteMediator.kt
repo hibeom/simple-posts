@@ -7,9 +7,9 @@ import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
 import com.pinkcloud.data.db.PostDatabase
 import com.pinkcloud.data.db.PostRemoteKey
-import com.pinkcloud.data.model.PostEntity
-import com.pinkcloud.data.remote.PostService
-import com.pinkcloud.data.remote.asEntity
+import com.pinkcloud.data.db.entity.PostEntity
+import com.pinkcloud.data.api.PostService
+import com.pinkcloud.data.api.asEntity
 import retrofit2.HttpException
 import java.io.IOException
 

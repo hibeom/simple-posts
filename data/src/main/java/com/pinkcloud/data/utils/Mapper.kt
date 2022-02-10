@@ -1,15 +1,16 @@
 package com.pinkcloud.data.utils
 
-import com.pinkcloud.data.model.CommentEntity
-import com.pinkcloud.data.model.PostEntity
-import com.pinkcloud.data.model.asDomainModel
-import com.pinkcloud.data.remote.PostResponse
-import com.pinkcloud.data.remote.asEntity
+import com.pinkcloud.data.api.CommentResponse
+import com.pinkcloud.data.db.entity.PostEntity
+import com.pinkcloud.data.db.entity.asDomainModel
+import com.pinkcloud.data.api.PostResponse
+import com.pinkcloud.data.api.asDomainModel
+import com.pinkcloud.data.api.asEntity
 import com.pinkcloud.domain.model.Comment
 import com.pinkcloud.domain.model.Post
 import com.pinkcloud.domain.utils.Result
 
-fun Result<List<CommentEntity>>.asDomainModel(): Result<List<Comment>> {
+fun Result<List<CommentResponse>>.asDomainModel(): Result<List<Comment>> {
     return when (this) {
         is Result.Success -> {
             Result.Success(data?.map { entity ->

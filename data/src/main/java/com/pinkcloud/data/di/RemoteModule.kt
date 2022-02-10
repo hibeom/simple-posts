@@ -1,6 +1,6 @@
 package com.pinkcloud.data.di
 
-import com.pinkcloud.data.remote.PostService
+import com.pinkcloud.data.api.PostService
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module

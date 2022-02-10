@@ -1,10 +1,10 @@
-package com.pinkcloud.data.model
+package com.pinkcloud.data.api
 
 import com.pinkcloud.domain.model.Comment
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class CommentEntity(
+data class CommentResponse(
     val id: Int,
     val postId: Int,
     val name: String,
@@ -12,7 +12,7 @@ data class CommentEntity(
     val body: String
 )
 
-fun CommentEntity.asDomainModel() = Comment(
+fun CommentResponse.asDomainModel() = Comment(
     id = id,
     postId = postId,
     name = name,

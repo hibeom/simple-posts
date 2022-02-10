@@ -1,7 +1,7 @@
 package com.pinkcloud.data.source.remote
 
-import com.pinkcloud.data.model.CommentEntity
-import com.pinkcloud.data.model.PostEntity
+import com.pinkcloud.data.api.CommentResponse
+import com.pinkcloud.data.db.entity.PostEntity
 import com.pinkcloud.domain.utils.Result
 
 interface RemotePostDataSource {
@@ -12,5 +12,5 @@ interface RemotePostDataSource {
 
     suspend fun updatePost(postEntity: PostEntity): Result<PostEntity>
 
-    suspend fun getComments(postId: Int): Result<List<CommentEntity>>
+    suspend fun getComments(postId: Int): Result<List<CommentResponse>>
 }

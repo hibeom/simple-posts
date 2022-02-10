@@ -5,7 +5,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.pinkcloud.simpleposts.ui.detail.EditViewModel" />
+            type="com.pinkcloud.simpleposts.ui.edit.EditViewModel" />
         <variable
             name="post"
             type="com.pinkcloud.domain.model.Post" />

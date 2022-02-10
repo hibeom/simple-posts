@@ -1,9 +1,9 @@
 package com.pinkcloud.data.source.remote
 
-import com.pinkcloud.data.model.CommentEntity
-import com.pinkcloud.data.model.PostEntity
-import com.pinkcloud.data.remote.BaseApiResponse
-import com.pinkcloud.data.remote.PostService
+import com.pinkcloud.data.db.entity.PostEntity
+import com.pinkcloud.data.api.BaseApiResponse
+import com.pinkcloud.data.api.CommentResponse
+import com.pinkcloud.data.api.PostService
 import com.pinkcloud.data.utils.asEntity
 import com.pinkcloud.domain.utils.Result
 import javax.inject.Inject
@@ -27,7 +27,7 @@ class BaseRemotePostDataSource @Inject constructor(
         ) }.asEntity()
     }
 
-    override suspend fun getComments(postId: Int): Result<List<CommentEntity>> {
+    override suspend fun getComments(postId: Int): Result<List<CommentResponse>> {
         return safeApiCall { postService.getComments(postId) }
     }
 }

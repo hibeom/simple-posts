@@ -1,6 +1,6 @@
-package com.pinkcloud.data.remote
+package com.pinkcloud.data.api
 
-import com.pinkcloud.data.model.PostEntity
+import com.pinkcloud.data.db.entity.PostEntity
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)

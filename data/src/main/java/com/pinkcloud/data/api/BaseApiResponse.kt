@@ -1,4 +1,4 @@
-package com.pinkcloud.data.remote
+package com.pinkcloud.data.api
 
 import retrofit2.Response
 import com.pinkcloud.domain.utils.Result

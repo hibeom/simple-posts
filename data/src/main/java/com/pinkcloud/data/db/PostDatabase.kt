@@ -2,7 +2,7 @@ package com.pinkcloud.data.db
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.pinkcloud.data.model.PostEntity
+import com.pinkcloud.data.db.entity.PostEntity
 
 @Database(entities = [PostEntity::class, PostRemoteKey::class], version = 1, exportSchema = false)
 abstract class PostDatabase: RoomDatabase() {

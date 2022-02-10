@@ -1,6 +1,6 @@
 package com.pinkcloud.data.source
 
-import com.pinkcloud.data.model.asDomainModel
+import com.pinkcloud.data.db.entity.asDomainModel
 import com.pinkcloud.data.source.local.LocalPostDataSource
 import com.pinkcloud.data.source.paging.PostPagingDataSource
 import com.pinkcloud.data.source.remote.RemotePostDataSource

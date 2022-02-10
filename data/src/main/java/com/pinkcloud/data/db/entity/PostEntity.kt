@@ -1,4 +1,4 @@
-package com.pinkcloud.data.model
+package com.pinkcloud.data.db.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

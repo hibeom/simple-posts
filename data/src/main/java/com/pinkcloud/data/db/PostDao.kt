@@ -2,7 +2,7 @@ package com.pinkcloud.data.db
 
 import androidx.paging.PagingSource
 import androidx.room.*
-import com.pinkcloud.data.model.PostEntity
+import com.pinkcloud.data.db.entity.PostEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao

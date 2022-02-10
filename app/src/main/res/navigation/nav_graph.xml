@@ -27,7 +27,7 @@
     </fragment>
     <dialog
         android:id="@+id/editDialog"
-        android:name="com.pinkcloud.simpleposts.ui.detail.EditDialog"
+        android:name="com.pinkcloud.simpleposts.ui.edit.EditDialog"
         android:label="EditDialog" >
         <argument
             android:name="postId"

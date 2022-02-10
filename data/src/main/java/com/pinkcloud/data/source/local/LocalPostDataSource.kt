@@ -1,6 +1,6 @@
 package com.pinkcloud.data.source.local
 
-import com.pinkcloud.data.model.PostEntity
+import com.pinkcloud.data.db.entity.PostEntity
 import com.pinkcloud.domain.utils.Result
 import kotlinx.coroutines.flow.Flow
 
