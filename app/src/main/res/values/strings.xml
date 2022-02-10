@@ -8,4 +8,5 @@
     <string name="delete_post">Delete post</string>
     <string name="edit">Edit</string>
     <string name="done">Done</string>
+    <string name="comment_user">%1$s • %2$s</string>
 </resources>
